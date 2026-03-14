@@ -2,52 +2,173 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Invitación Real - V & C</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Real</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&display=swap');
-
-        :root {
-            --bridgerton-blue: #a5c3d4;
-            --gold-bright: #ffd700;
-            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --cream: #fffaf0;
-            --wax-red: #9e1b32;
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,600;1,600&family=Great+Vibes&display=swap');
 
         body {
-            background-color: #f0e6d2;
-            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            background-color: #f3ede0;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow: hidden;
+            height: 100vh;
             font-family: 'Playfair Display', serif;
+            overflow: hidden;
         }
 
-        /* El Sobre */
-        .envelope-wrapper {
+        /* Contenedor del Sobre */
+        .envelope {
             position: relative;
-            width: 95%;
-            max-width: 380px;
-            height: 250px;
-            background: var(--bridgerton-blue);
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            width: 320px;
+            height: 200px;
+            background: #a5c3d4;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             cursor: pointer;
-            z-index: 2;
+            z-index: 100;
+            transition: transform 0.5s;
         }
 
+        /* Solapa */
         .flap {
             position: absolute;
             top: 0;
-            width: 100%;
-            height: 0;
-            border-left: 190px solid transparent;
-            border-right: 190px solid transparent;
-            border-top: 160px solid var(--bridgerton-blue);
-            transform-origin
+            width: 0; height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid #a5c3d4;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 3;
+        }
+
+        /* Sello V & C */
+        .seal {
+            position: absolute;
+            top: 80px;
+            left: 120px;
+            width: 80px;
+            height: 80px;
+            background: #9e1b32;
+            border-radius: 50%;
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid #7a1224;
+            transition: opacity 0.4s;
+        }
+
+        .seal span {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 22px;
+            font-weight: bold;
+            color: transparent;
+            background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 5px rgba(255,215,0,0.3);
+        }
+
+        /* La Carta que sale */
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            height: 180px;
+            background: #fffaf0;
+            z-index: 1;
+            transition: all 0.8s ease;
+            padding: 25px;
+            box-sizing: border-box;
+            overflow-y: scroll;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            scrollbar-width: none;
+        }
+        .letter::-webkit-scrollbar { display: none; }
+
+        /* Texto de la carta */
+        .letter h2 { font-size: 1.1rem; text-align: center; color: #1a1a1a; margin-top: 0; border-bottom: 1px solid #d4af37; padding-bottom: 5px; }
+        .letter p { font-size: 1.15rem; line-height: 1.6; color: #333; margin-bottom: 15px; }
+
+        /* Clase para abrir */
+        .open .flap { transform: rotateX(180deg); z-index: 0; }
+        .open .seal { opacity: 0; pointer-events: none; }
+        .open .letter {
+            transform: translateY(-260px);
+            height: 500px;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .final {
+            margin-top: 30px;
+            text-align: center;
+            border-top: 2px double #d4af37;
+            padding-top: 20px;
+        }
+        .final h3 { font-family: 'Great Vibes', cursive; font-size: 2rem; color: #1a1a1a; }
+
+    </style>
+</head>
+<body>
+
+    <div class="envelope" id="mainEnv" onclick="abrir()">
+        <div class="flap"></div>
+        <div class="seal"><span>V & C</span></div>
+        
+        <div class="letter" id="carta">
+            <h2>Crónicas de Lady Whistledown</h2>
+            <p>Querido lector,</p>
+            <p>Mientras algunos pasan sus días buscando desesperadamente una chispa de pasión, hay quienes han convertido el amor en una verdadera obra de arte.</p>
+            <p>Se comenta en los pasillos de Mayfair que una pareja en particular ha logrado lo que muchos consideran imposible: mantener al mundo entero cautivado durante seis años completos.</p>
+            <p>Esta autora no suele dejarse impresionar por sentimentalismos baratos, pero debo confesar que la constancia de estas dos damas es el tema de conversación en todas las salas de baile. Es por ello que no queda más remedio que nombrarlas, por derecho propio, la pareja de la temporada.</p>
+            <p>El escenario para su celebración será un hotel de gran distinción, donde se espera su llegada hoy mismo a las 4:00 PM.</p>
+            <p>¿Qué secretos se confiarán tras las puertas cerradas? Su amor es la única joya auténtica que brilla hoy.</p>
+            <p>No aparten la vista de ellas, queridos lectores; la verdadera elegancia no necesita presentación.</p>
+            
+            <div class="final">
+                <h3>Está cordialmente invitada a una noche en el palacio Windsor</h3>
+                <p><b>La esperamos Duquesa Valery.</b></p>
+                <p style="font-family: 'Great Vibes'; font-size: 1.8rem; color: #9e1b32;">Atentamente, su gran enamorada</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrir() {
+            const env = document.getElementById('mainEnv');
+            const carta = document.getElementById('carta');
+            
+            if (!env.classList.contains('open')) {
+                env.classList.add('open');
+                
+                // Texto para narrar
+                const mensaje = "Querido lector, Mientras algunos pasan sus días buscando desesperadamente una chispa de pasión, hay quienes han convertido el amor en una verdadera obra de arte. Se comenta que una pareja ha logrado lo imposible: mantener al mundo entero cautivado durante seis años completos. Esta autora confiesa que la constancia de estas dos damas es el tema de conversación en todas las salas de baile. Es por ello que las nombro la pareja de la temporada. Se espera su llegada hoy mismo a las cuatro de la tarde. Su amor es la única joya auténtica que brilla hoy. La verdadera elegancia no necesita presentación.";
+
+                // Configurar voz
+                const synth = window.speechSynthesis;
+                const narracion = new SpeechSynthesisUtterance(mensaje);
+                narracion.lang = 'es-ES';
+                narracion.rate = 0.9;
+
+                // Scroll automático al empezar a hablar
+                narracion.onstart = () => {
+                    let scrollInterval = setInterval(() => {
+                        carta.scrollTop += 1;
+                        if (carta.scrollTop + carta.offsetHeight >= carta.scrollHeight) {
+                            clearInterval(scrollInterval);
+                        }
+                    }, 120); // Ajusta la velocidad del scroll aquí
+                };
+
+                synth.speak(narracion);
+            }
+        }
+    </script>
+</body>
+</html>
