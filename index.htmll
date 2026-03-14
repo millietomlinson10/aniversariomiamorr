@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Invitación Real - V & C</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&display=swap');
+
+        :root {
+            --bridgerton-blue: #a5c3d4; /* Azul Wedgwood clásico */
+            --gold: #c5a059;
+            --cream: #fffaf0;
+            --wax-red: #9e1b32;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: #f0e6d2;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Contenedor principal */
+        .scene {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* El Sobre */
+        .envelope-wrapper {
+            position: relative;
+            width: 90%;
+            height: 250px;
+            background: var(--bridgerton-blue);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .envelope-wrapper::before {
+            content: "";
+            position: absolute;
+            z-index: 4;
+            border-top: 125px solid transparent;
+            border-right: 180px solid rgba(255,255,255,0.1);
+            border-bottom: 125px solid rgba(255,255,255,0.1);
+            border-left: 180px solid rgba(0,0,0,0.05);
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Solapa superior */
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 0;
+            border-left: 180px solid transparent;
+            border-right: 180px solid transparent;
+            border-top: 150px solid var(--bridgerton-blue);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 5;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+        }
+
+        /* Sello de Lacre */
+        .wax-seal {
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: var(--wax-red);
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.2);
+            border: 2px solid #801226;
+        }
+
+        .wax-seal span {
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        /* La Carta (Papel) */
+        .letter {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            width: 90%;
+            height: 80%;
+            background: var(--cream);
+            padding: 30px 20px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            overflow-y: scroll;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            opacity: 0;
+        }
+
+        .letter h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font
